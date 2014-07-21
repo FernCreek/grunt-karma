@@ -56,9 +56,13 @@ module.exports = function(grunt) {
       data.configFile = grunt.template.process(data.configFile);
     }
 
-    if (data.files){
+    if (this.filesSrc) {
+      data.files = this.filesSrc;
+    } else if (data.files) {
       data.files = _.flatten(data.files);
     }
+
+    grunt.log.debug('Files: ' + JSON.stringify(data.files, null, 2));
 
     //support `karma run`, useful for grunt watch
     if (this.flags.run){

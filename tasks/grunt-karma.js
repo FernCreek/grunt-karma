@@ -43,8 +43,14 @@ module.exports = function(grunt) {
 
     // But override the browsers array.
     if (data.browsers && this.data.browsers) {
-      data.browsers = this.data.browsers;
+      if (_.isString(this.data.browsers)) {
+        data.browsers = this.data.browsers.split(',');
+      } else {
+        data.browsers = this.data.browsers;
+      }
     }
+
+    grunt.log.debug('Browsers: ' + JSON.stringify(data.browsers, null, 2));
 
     // Merge client.args
     if (this.data.client && _.isArray(this.data.client.args)) {
